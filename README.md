@@ -3,3 +3,4 @@ This tutorial provides a complete, beginner-friendly guide to setting up the Wav
 
 - [L76X hat tutorial](L76x_GPS_Hat_Tutorial.md)
 - [Cam mod 3 tutorial](raspberry_pi_camera_tutorial.md)
+- [Tailscale](Tailscale_Setup_Tutorial.md)

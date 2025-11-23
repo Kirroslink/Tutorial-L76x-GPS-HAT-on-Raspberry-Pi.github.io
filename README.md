@@ -7,3 +7,4 @@ This tutorial provides a complete, beginner-friendly guide to setting up the Wav
 - [Tailscale](Tailscale_Setup_Tutorial.md)
 - [RPI Wireguard CLI Guide](RPI_WIREGUARD_CLI_GUIDE.md)
 - [RPI Wireguard VNC Guide](RPI_WIREGUARD_VNC_GUIDE.md)
+- [RPI GPS Camera Guide](RPI_GPS_CAMERA_GUIDE.md)

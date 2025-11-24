@@ -4,14 +4,23 @@ This guide will walk you through setting up a lightweight, file-based wiki on yo
 
 ---
 
-### Part 1: Install Dependencies
+### Part 1: Setup and Dependencies
 
-You only need two Python libraries for this project: `Flask` (the web framework) and `Markdown` (to convert your text to HTML).
+1.  **Open a terminal** on your Raspberry Pi and navigate to the directory where `pi_wiki.py` is located.
 
-1.  Open a terminal on your Raspberry Pi.
-2.  Update your package list and then install the libraries using `pip`:
+2.  **Create a virtual environment.** This creates a folder named `venv` that will hold your project's libraries. You only need to do this once.
     ```bash
-    sudo apt update
+    python3 -m venv venv
+    ```
+
+3.  **Activate the virtual environment.** You must do this every time you open a new terminal to work on the project.
+    ```bash
+    source venv/bin/activate
+    ```
+    Your prompt will change to show `(venv)`.
+
+4.  **Install the required libraries.** With the environment active, use `pip` to install Flask and Markdown. They will be installed inside the `venv` folder, not globally.
+    ```bash
     pip install Flask markdown
     ```
 
@@ -36,7 +45,11 @@ The script `pi_wiki.py` has been created for you. It contains everything needed 
 
 2.  **Run the Script:**
     *   Navigate to the directory where `pi_wiki.py` is saved.
-    *   Execute it with Python:
+    *   **Activate the environment** (if you haven't already):
+        ```bash
+        source venv/bin/activate
+        ```
+    *   Execute the script:
         ```bash
         python pi_wiki.py
         ```
@@ -72,9 +85,9 @@ Running the script from the terminal is fine for testing, but if you want your w
         sudo nano /etc/systemd/system/pi-wiki.service
         ```
 
-2.  **Paste the following content.** **You must change the `WorkingDirectory` and the `User` to match your setup.**
+2.  **Paste the following content.** **You must change the `User` and the paths to match your setup.**
     *   Find your username with `whoami`.
-    *   Find your working directory with `pwd` (run this in the same folder as `pi_wiki.py`).
+    *   Find your project's absolute path with `pwd` (run this in the same folder as `pi_wiki.py`).
 
     ```ini
     [Unit]
@@ -83,13 +96,14 @@ Running the script from the terminal is fine for testing, but if you want your w
 
     [Service]
     User=YOUR_USERNAME
-    WorkingDirectory=/path/to/your/script/directory
-    ExecStart=/usr/bin/python3 /path/to/your/script/directory/pi_wiki.py
+    WorkingDirectory=/home/YOUR_USERNAME/path/to/your/project
+    ExecStart=/home/YOUR_USERNAME/path/to/your/project/venv/bin/python /home/YOUR_USERNAME/path/to/your/project/pi_wiki.py
     Restart=always
 
     [Install]
     WantedBy=multi-user.target
     ```
+    **CRITICAL:** The `ExecStart` path must point to the `python` executable **inside your venv folder**.
 
 3.  **Enable and Start the Service:**
     *   Reload the systemd daemon to recognize the new file:
